@@ -1,0 +1,28 @@
+﻿<PageTitle>@_heading</PageTitle>
+
+<h1>@_heading</h1>
+
+<div class="container">
+    @if (_is404)
+    {
+        <p class="text-danger h2">Looks ike you have followed a wrong or outdated link</p>
+    }
+    else
+    {
+        <p class="text-danger h2">We've encountered an error</p>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int StatusCode { get; set; }
+
+    private bool _is404;
+    private string _heading;
+    protected override void OnInitialized()
+    {
+        _is404 = StatusCode == 404;
+
+        _heading = _is404 ? "Error 404 | Page Not Found" : $"Error {StatusCode}";
+    }
+}
